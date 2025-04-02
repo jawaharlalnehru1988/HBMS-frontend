@@ -1,0 +1,24 @@
+/* src/app/auth/auth.component.scss */
+
+.auth-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px; /* Maximum width for the form */
+}
+
+.mat-form-field {
+  width: 100%; /* Make mat-form-field take full width */
+}
+
+/* Optional: Style for the form elements */
+.auth-form .mat-form-field {
+  margin-bottom: 16px; /* Space between form fields */
+}
