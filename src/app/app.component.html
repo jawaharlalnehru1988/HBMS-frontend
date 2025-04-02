@@ -1,2 +1,23 @@
+ @if(showHeader){
 
+     <header>
+         <mat-toolbar color="primary" class="custom-toolbar">
+             <nav>
+                 <a mat-button routerLink="/dashboard" [ngClass]="{'active-link':isActive('/dashboard')}">Dashboard</a>
+                </nav>
+        <nav>
+            <a mat-button routerLink="/bookings" [ngClass]="{'active-link':isActive('/bookings')}">Bookings</a>
+        </nav>
+        <nav>
+            <a mat-button routerLink="/beds" [ngClass]="{'active-link':isActive('/beds')}" >Beds</a>
+        </nav>
+        <nav>
+            <a mat-button routerLink="/patients" [ngClass]="{'active-link':isActive('/patients')}">Patients</a>
+        </nav>
+        <nav>
+            <a mat-button style="cursor:pointer" (click)="logout()">Logout</a>
+        </nav>
+    </mat-toolbar>
+</header>
+}
 <router-outlet />

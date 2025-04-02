@@ -1,0 +1,32 @@
+.custom-toolbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    background-color: #1976d2; /* Primary color */
+    color: white;
+}
+
+.custom-toolbar nav {
+    display: flex;
+    align-items: center;
+}
+
+.custom-toolbar a {
+    margin: 0 10px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.custom-toolbar a:hover {
+    color: #ffeb3b; /* Accent color */
+}
+
+.active-link {
+    color: white; /* Accent color */
+    background-color: blue;
+   padding: 5px;
+   border-radius: 5px;
+}
+

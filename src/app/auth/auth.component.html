@@ -1,39 +1,50 @@
-<h2>Register</h2>
-<form class="register-form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
-  <mat-form-field>
-    <mat-label>Username</mat-label>
-    <input matInput formControlName="username" required>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Email</mat-label>
-    <input matInput formControlName="email" required>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Password</mat-label>
-    <input matInput type="password" formControlName="password" required>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Role</mat-label>
-    <input matInput type="text" formControlName="role" required>
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" type="submit">Register</button>
-</form>
-
-<h2>Login</h2>
-<form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
-  <mat-form-field>
-    <mat-label>Username</mat-label>
-    <input matInput formControlName="username" required>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Password</mat-label>
-    <input matInput type="password" formControlName="password" required>
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" type="submit">Login</button>
-</form>
+<div class="form-container">
+  <mat-toolbar color="primary" class="custom-toolbar">
+      <button mat-button (click)="toggleForm()"> {{ isLogin ? 'Register' : 'Login' }}</button>
+  </mat-toolbar>
+  @if(isLogin){
+  <main>
+    <h2>Login</h2>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" required>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Login</button>
+    </form>
+  </main>
+}
+@if(!isLogin){
+  <main >
+      <h2>Register</h2>
+      <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+          <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="username" required>
+          </mat-form-field>
+          <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" required>
+          </mat-form-field>
+          <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input matInput type="password" formControlName="password" required>
+          </mat-form-field>
+          <mat-form-field>
+              <mat-label>Role</mat-label>
+              <mat-select formControlName="role" required>
+                @for(role of roles; track role){
+                  <mat-option [value]="role">{{role}}</mat-option>
+                }
+                
+              </mat-select>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">Register</button>
+      </form>
+  </main>
+}
+</div>
