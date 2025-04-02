@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-auth',
-  imports: [],
+  imports: [MatInputModule, MatButtonModule, ReactiveFormsModule],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  registerForm: FormGroup;
-  loginForm: FormGroup;
+  registerForm!: FormGroup;
+  loginForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
 
@@ -17,7 +21,8 @@ export class AuthComponent implements OnInit {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      role: ['', Validators.required]
     });
 
     this.loginForm = this.fb.group({
