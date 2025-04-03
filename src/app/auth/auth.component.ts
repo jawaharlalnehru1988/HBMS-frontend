@@ -19,7 +19,7 @@ export class AuthComponent implements OnInit {
   registerForm!: FormGroup;
   loginForm!: FormGroup;
   isLogin = true;
-  roles:string[] = ['doctor', 'patient', 'admin'];
+  roles:string[] = ['doctor', 'admin', 'staff'];
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router, private cookies: CookieService) {}
 
   ngOnInit(): void {

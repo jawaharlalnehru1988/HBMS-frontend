@@ -1,22 +1,23 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatFormField, MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { BedData } from '../../shared/interceptors/typescript';
 import { ApiService } from '../../shared/services/api.service';
 import { map } from 'rxjs';
+import {MatSort, MatSortModule} from '@angular/material/sort';
 
 
 @Component({
   selector: 'app-add-data',
-  imports: [MatButtonModule, NgIf, MatTableModule, MatIcon, MatPaginatorModule, MatDialogContent],
+  imports: [MatButtonModule,MatSortModule, NgIf, MatTableModule, MatIcon, MatPaginatorModule, MatDialogContent],
   templateUrl: './add-data.component.html',
   styleUrl: './add-data.component.scss'
 })
@@ -24,22 +25,22 @@ export class AddDataComponent {
   readonly dialog = inject(MatDialog);
   displayedColumns: string[] = ['bedId', 'bedNumber',  'ward', 'bedType', 'status', 'actions'];
   dataSource = new MatTableDataSource<BedData>();
-
-  data: BedData[] = [
-    { bedId: 1, bedNumber: '101', ward: 'ICU', bedType: 'A', status: 'Available' },
-    { bedId: 2, bedNumber: '102', ward: 'General', bedType: 'B', status: 'Occupied' },
-    { bedId: 3, bedNumber: '103', ward: 'ICU', bedType: 'C', status: 'Available' },
-    { bedId: 4, bedNumber: '104', ward: 'General', bedType: 'A', status: 'Occupied' },
-    { bedId: 5, bedNumber: '105', ward: 'ICU', bedType: 'C', status: 'Available' },
-  ];
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+ 
   constructor(private apiService: ApiService) {
-    this.dataSource = new MatTableDataSource(this.data);
+    // this.dataSource = new MatTableDataSource(this.data);
   }
   ngOnInit(): void {
     // this.dataSource = new MatTableDataSource(this.data);
     this.getAllBedData();
   }
 
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
   openEditDialog(ele: BedData): void {
     this.dialog.open(DialogAnimationsExampleDialog, {
       width: '350px',

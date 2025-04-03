@@ -7,8 +7,9 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class  ApiService {
-  private authUrl = 'http://localhost:4000/api/auth/'; // Base URL for your API
-  private bedUrl = 'http://localhost:4000/api/beds/'; // Base URL for your API
+  private authUrl = 'http://localhost:4000/api/auth/';
+  private bedUrl = 'http://localhost:4000/api/beds/'; 
+  private patientUrl = 'http://localhost:4000/api/patient/';
 
   constructor(private http: HttpClient, private cookies: CookieService) { }
 
@@ -37,4 +38,20 @@ export class  ApiService {
     return this.http.delete<string>(`${this.bedUrl}delete/${bedId}`);
   }
   
+  addPatientData(patientData: any){
+    return this.http.post<any>(`${this.patientUrl}admit`, patientData);
+  }
+
+  updatePatientData(patientData:any){
+    return this.http.put<any>(`${this.patientUrl}update/${patientData._id}`, patientData)
+  }
+  getAllPatientDatas(){
+    return this.http.get<any>(`${this.patientUrl}`);
+  }
+
+  deletePatientData(userId:string){
+    return this.http.delete<any>(`${this.patientUrl}delete`+userId)
+  }
+
+
 }
