@@ -7,3 +7,12 @@
         email:string;
         password:string;
     }
+
+    export interface BedData {
+        bedId: any;
+        bedNumber: string;
+        bedType: string;
+        ward: string;
+        status: string;
+      }
+      

@@ -3,10 +3,11 @@ import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
 import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AddDataComponent } from "../add-data/add-data.component";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [MatCardModule, MatChipsModule],
+  imports: [MatCardModule, MatChipsModule, AddDataComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
