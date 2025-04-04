@@ -1,1 +1,46 @@
-<p>booking works!</p>
+<main>
+
+    <div class="border">
+        <section class="example-section">
+            <mat-slide-toggle (change)="isBooking = !isBooking">
+              {{isBooking? "Booking" : "Discharging"}}
+            </mat-slide-toggle>
+          </section>
+    <form class="example-form" [formGroup]="bookingFormGroup" >
+        <mat-form-field class="example-full-width">
+      <mat-label>Patients</mat-label>
+      <input type="text"
+             placeholder="Pick one"
+             aria-label="Number"
+             matInput
+             formControlName="patient"
+             (focus)="onPatientInputFocus()"
+             [matAutocomplete]="autoPatients">
+      <mat-autocomplete autoActiveFirstOption #autoPatients="matAutocomplete" [displayWith]="displayPatientFn">
+        @for (option of filteredPatientOptions | async; track option) {
+          <mat-option [value]="option">{{option.patientName}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+        <mat-form-field class="example-full-width">
+      <mat-label>Bed</mat-label>
+      <input type="text"
+             placeholder="Pick one"
+             aria-label="Number"
+             matInput
+             formControlName="bed"
+             (focus)="onBedInputFocus()"
+             [matAutocomplete]="autoBeds">
+      <mat-autocomplete autoActiveFirstOption #autoBeds="matAutocomplete"  [displayWith]="displayBedFn">
+        @for (option1 of filteredBedOptions | async; track option1) {
+          <mat-option [value]="option1">{{option1.bedNumber}} - {{option1.status}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <footer>
+    <button mat-button (click)="submitData()">{{isBooking? "Book" : "Discharge"}}</button>
+    <button mat-button (click)="cancel()">Cancel</button>
+  </footer>
+</div>
+</main>

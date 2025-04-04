@@ -6,7 +6,7 @@ import { MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, Mat
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { BedData } from '../../shared/interceptors/typescript';
@@ -27,19 +27,44 @@ export class AddDataComponent {
   dataSource = new MatTableDataSource<BedData>();
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
- 
+  beds: BedData[] = [];
+  currentPage = 1;
+  totalPages = 1;
+  limit = 5;
+  totalItems = 0;
+
   constructor(private apiService: ApiService) {
     // this.dataSource = new MatTableDataSource(this.data);
   }
   ngOnInit(): void {
     // this.dataSource = new MatTableDataSource(this.data);
-    this.getAllBedData();
+    // this.getAllBedData();
+    this.loadBeds();
   }
 
+  loadBeds() {
+    this.apiService.getPaginatedBeds(this.currentPage, this.limit).subscribe({
+      next:(data)=> {
+        console.log('data.beds :', data);
+    this.dataSource = new MatTableDataSource(data.beds);
+
+        // this.dataSource.data = data.beds;
+        this.currentPage = data.currentPage;
+        this.totalPages = data.totalPages;
+        this.totalItems = data.totalItems;
+      }
+    });
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.currentPage = event.pageIndex + 1;
+    this.limit = event.pageSize;
+    this.loadBeds();
+  }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
   }
   openEditDialog(ele: BedData): void {
     this.dialog.open(DialogAnimationsExampleDialog, {
