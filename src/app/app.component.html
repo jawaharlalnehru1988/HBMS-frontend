@@ -1,4 +1,4 @@
- @if(showHeader){
+@if(showHeader){
 
      <header>
          <mat-toolbar color="primary" class="custom-toolbar">
@@ -16,6 +16,9 @@
         </nav>
         <nav>
             <a mat-button style="cursor:pointer" (click)="logout()">Logout</a>
+        </nav>
+        <nav>
+            <a mat-button>Session Validity till - {{ getTokenExpiration() | date : 'h:mm:ss a' }}</a>
         </nav>
     </mat-toolbar>
 </header>

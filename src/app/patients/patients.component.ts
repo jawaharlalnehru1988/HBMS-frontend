@@ -60,9 +60,7 @@ addData(): void {
           width: '350px',
           data: { value: "Edit", ele}
         }).afterClosed().subscribe(result => {
-        console.log('result :', result);
-    
-        });
+          this.getAllPatientsData();        });
       }
 
     openDeleteDialog(ele: string): void {
@@ -70,7 +68,7 @@ addData(): void {
           width: '350px',
           data: { value: "Delete", ele}
         }).afterClosed().subscribe(result => {
-          console.log('result :', result);
+          this.getAllPatientsData();
         });
       }
 }
@@ -146,6 +144,9 @@ export class DialogUpdateDialog {
     this.apiService.deletePatientData(ele).subscribe({
       next:()=>{
         alert('Patient data deleted successfully!');
+      },
+      error: (err) => {
+        alert('Failed to delete Patient data!');
       }
     });
   }

@@ -46,7 +46,7 @@ export class AddDataComponent {
       width: '350px',
       data: { value: "Edit", ele}
     }).afterClosed().subscribe(result => {
-    console.log('result :', result);
+    this.getAllBedData();
 
     });
   }
@@ -55,25 +55,16 @@ export class AddDataComponent {
       width: '350px',
       data: { value: "Add", ele: {}}
     }).afterClosed().subscribe(result => {
-    console.log('result :', result);
     this.getAllBedData();
-   
     });
   }
 
   getAllBedData(): void {
-    this.apiService.getAllBedData().pipe(
-      map((res: any[]) => res.map(item => ({
-      ...item,
-      _id: item._id.slice(-5) // Extract the last 5 characters of the _id
-      })))
-    ).subscribe({
+    this.apiService.getAllBedData().subscribe({
       next: (res) => {
-      console.log('getAllBedData response:', res);
       this.dataSource.data = res;
       },
-      error: (err) => {
-      console.error('getAllBedData error:', err);
+      error: () => {
       alert('Failed to fetch bed data!');
       }
     });
@@ -84,6 +75,7 @@ export class AddDataComponent {
       data: { value: "Delete", ele}
     }).afterClosed().subscribe(result => {
       console.log('result :', result);
+      this.getAllBedData();
     });
   }
 
@@ -108,7 +100,7 @@ export class DialogAnimationsExampleDialog {
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.BedGroupForm = this.fb.group({
-      bedId: ['', Validators.required],
+      _id: ['', Validators.required],
       bedNumber: ['', Validators.required],
       bedType: ['', Validators.required],
       ward: ['', Validators.required],
@@ -157,24 +149,25 @@ export class DialogAnimationsExampleDialog {
     } else if (this.data.value === "Delete") {
       // Call the delete API here
       console.log('Delete Bed Data:', this.BedGroupForm.value);
-      this.apiService.deleteBedData(this.BedGroupForm.value.bedId).subscribe({
-        next: (res) => {
-          console.log('Delete response:', res);
-          alert('Bed data deleted successfully!');
-          this.dialogRef.close();
-        },
-        error: (err) => {
-          console.error('Delete error:', err);
-          alert('Failed to delete bed data!');
-        }
-      });
-    }
+         }
   }
   onNoClick(): void {
     this.dialogRef.close();
   }
   deleteBed(ele: string): void {
     console.log('deleteBed :', ele);
+    this.apiService.deleteBedData(ele).subscribe({
+      next: (res) => {
+        console.log('Delete response:', res);
+        alert('Bed data deleted successfully!');
+        this.dialogRef.close();
+      },
+      error: (err) => {
+        console.error('Delete error:', err);
+        alert('Failed to delete bed data!');
+      }
+    });
+
   }
 
 }

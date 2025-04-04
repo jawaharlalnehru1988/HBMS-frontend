@@ -32,10 +32,11 @@ export class  ApiService {
     return this.http.get<BedData[]>(`${this.bedUrl}`);
   }
   updateBedData(bedData: BedData){
-    return this.http.put<BedData>(`${this.bedUrl}${bedData.bedId}`, bedData);
+  console.log('bedData :', bedData);
+    return this.http.put<BedData>(`${this.bedUrl}${bedData._id}`, bedData);
   }
   deleteBedData(bedId: string){
-    return this.http.delete<string>(`${this.bedUrl}delete/${bedId}`);
+    return this.http.delete<string>(`${this.bedUrl}${bedId}`);
   }
   
   addPatientData(patientData: any){
@@ -43,6 +44,7 @@ export class  ApiService {
   }
 
   updatePatientData(patientData:any){
+  console.log('patientData :', patientData);
     return this.http.put<any>(`${this.patientUrl}update/${patientData._id}`, patientData)
   }
   getAllPatientDatas(){
@@ -50,7 +52,7 @@ export class  ApiService {
   }
 
   deletePatientData(userId:string){
-    return this.http.delete<any>(`${this.patientUrl}delete`+userId)
+    return this.http.delete<any>(`${this.patientUrl}delete/`+userId)
   }
 
 

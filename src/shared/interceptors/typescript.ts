@@ -9,6 +9,7 @@
     }
 
     export interface BedData {
+        _id?: string;
         bedId: any;
         bedNumber: string;
         bedType: string;

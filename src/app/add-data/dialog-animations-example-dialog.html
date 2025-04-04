@@ -6,7 +6,7 @@
             <form [formGroup]="BedGroupForm">  
                 <mat-form-field appearance="fill">
                     <mat-label>Bed ID</mat-label>
-                    <input matInput formControlName="bedId" name="bedId" required readonly>
+                    <input matInput formControlName="_id" name="_id" required readonly>
                 </mat-form-field>      
                 <mat-form-field appearance="fill">
                     <mat-label>Bed Number</mat-label>
@@ -48,11 +48,11 @@
     <section>
         <h2 mat-dialog-title>Delete Data</h2>
         <mat-dialog-content>
-            <p>Are you sure you want to delete this bed? {{data.ele.bedId}}</p>
+            <p>Are you sure you want to delete this bed? {{data.ele._id}}</p>
         </mat-dialog-content>
         <mat-dialog-actions>
             <button mat-button mat-dialog-close>Cancel</button>
-            <button mat-button (click)="deleteBed(data.ele.bedId)" cdkFocusInitial>Delete</button>
+            <button mat-button (click)="deleteBed(data.ele._id)" cdkFocusInitial>Delete</button>
         </mat-dialog-actions>
     </section>
 } @else {
@@ -101,12 +101,3 @@
         </mat-dialog-actions>
     </section>
 }
-
-
-_id	Objectid
-patientName	String
- age	number
- gender	String
-admissionDate	Date
- bedId	ObjectId
-Timestamps	boolean
